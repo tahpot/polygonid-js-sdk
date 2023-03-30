@@ -1,9 +1,10 @@
 /* eslint-disable require-await */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export async function witnessBuilder(code, options?) {
+export async function witnessBuilder(instance, options?) {
+  console.log('witnessBuilder()')
   options = options || {};
 
-  let wasmModule;
+  /*let wasmModule;
   try {
     wasmModule = await WebAssembly.compile(code);
   } catch (err) {
@@ -55,14 +56,14 @@ export async function witnessBuilder(code, options?) {
         printSharedRWMemory();
       }
     }
-  });
+  });*/
 
   const sanityCheck = options;
 
   const wc = new WitnessCalculator(instance, sanityCheck);
   return wc;
 
-  function getMessage() {
+  /*function getMessage() {
     let message = '';
     let c = (instance as any).exports.getMessageChar();
     while (c != 0) {
@@ -85,7 +86,7 @@ export async function witnessBuilder(code, options?) {
     }
     // Then append the value to the message we are creating
     msgStr += fromArray32(arr).toString();
-  }
+  }*/
 }
 
 class WitnessCalculator {

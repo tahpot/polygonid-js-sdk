@@ -36,9 +36,9 @@ export class NativeProver {
   async generate(inputs: Uint8Array, circuitId: CircuitId): Promise<ZKProof> {
     try {
       const circuitData = await this._circuitStorage.loadCircuitData(circuitId);
-      const wasm: Uint8Array = circuitData.wasm;
+      const wasmInstance = circuitData.wasmInstance;
 
-      const witnessCalculator = await witnessBuilder(wasm);
+      const witnessCalculator = await witnessBuilder(wasmInstance);
 
       const parsedData = JSON.parse(new TextDecoder().decode(inputs));
 
