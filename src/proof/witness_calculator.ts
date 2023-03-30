@@ -1,6 +1,6 @@
 /* eslint-disable require-await */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export async function witnessBuilder(instance, options?) {
+export async function witnessBuilder(instanceImport, options?) {
   console.log('witnessBuilder()')
   options = options || {};
 
@@ -9,12 +9,12 @@ export async function witnessBuilder(instance, options?) {
     wasmModule = await WebAssembly.compile(code);
   } catch (err) {
     throw new Error(err);
-  }
+  }*/
 
   let errStr = '';
   let msgStr = '';
 
-  const instance = await WebAssembly.instantiate(wasmModule, {
+  const instance = instanceImport({
     runtime: {
       exceptionHandler: function (code) {
         let err;
@@ -56,14 +56,14 @@ export async function witnessBuilder(instance, options?) {
         printSharedRWMemory();
       }
     }
-  });*/
+  });
 
   const sanityCheck = options;
 
   const wc = new WitnessCalculator(instance, sanityCheck);
   return wc;
 
-  /*function getMessage() {
+  function getMessage() {
     let message = '';
     let c = (instance as any).exports.getMessageChar();
     while (c != 0) {
@@ -86,7 +86,7 @@ export async function witnessBuilder(instance, options?) {
     }
     // Then append the value to the message we are creating
     msgStr += fromArray32(arr).toString();
-  }*/
+  }
 }
 
 class WitnessCalculator {
